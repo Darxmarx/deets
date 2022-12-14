@@ -69,6 +69,21 @@ const resolvers = {
             return { token, user };
         },
 
-        
+        // add a new main to a user
+        addMain: async (parent, { mainName }, context) => {
+            // if user is logged in, add new main to the user
+            if (context.user) {
+                const main = await Main.create({
+                    mainName
+                });
+
+                await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $addToSet: { mains: main._id } }
+                );
+
+                return main;
+            }
+        }
     }
 }

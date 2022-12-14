@@ -16,7 +16,7 @@ const typeDefs = gql`
     # main details
     type Main {
         _id: ID
-        url: String
+        mainName: String
     }
 
     # authorization using jwt
@@ -42,7 +42,7 @@ const typeDefs = gql`
         addUser(username: String, email: String, password: String): Auth
         login(email: String, password: String): Auth
         # add and remove mains based on url of image
-        addMain(url: String): Main
+        addMain(mainName: String): Main
         removeMain(mainId: ID): Main
     }
 `;
