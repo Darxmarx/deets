@@ -18,11 +18,32 @@ const typeDefs = gql`
         _id: ID
         url: String
     }
+
+    # authorization using jwt
+    type Auth {
+        token: ID
+        user: User
+    }
     
     # available queries to be resolved in resolvers
     type Query {
         users: [User]
-        mains: [Main]
+        # grab single user based on their username
+        user(username: String): User
+        # grab all of one user's mains
+        mains(username: String): [Main]
+        # personal profile
+        me: User
+    }
+
+    # mutations available to modify data
+    type Mutation {
+        # both addUser and login require use of jwt
+        addUser(username: String, email: String, password: String): Auth
+        login(email: String, password: String): Auth
+        # add and remove mains based on url of image
+        addMain(url: String): Main
+        removeMain(mainId: ID): Main
     }
 `;
 
