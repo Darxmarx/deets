@@ -35,5 +35,40 @@ const resolvers = {
         }
     },
 
-    
+    // mutations
+    Mutation: {
+        // adds brand new user to users array
+        addUser: async (parent, { username, email, password }) => {
+            // new user created as long as username, email, and password are all valid
+            const user = await User.create({ username, email, password });
+            // sets up a jwt for new user
+            const token = signToken(user);
+            return { token, user };
+        },
+
+        // user login based on email and password
+        login: async (parent, { email, password }) => {
+            // finds user by their email address
+            const user = await User.findOne({ email });
+
+            // if user does not exist, throw error
+            if (!user) {
+                throw new AuthenticationError('No user found with this email address.');
+            }
+
+            // checks if inputted password is correct
+            const correctPassword = await user.isCorrectPassword(password);
+
+            // if password is invalid, throw error
+            if (!correctPassword) {
+                throw new AuthenticationError('Incorrect password.');
+            }
+
+            // if all credentials are valid, set up jwt for user
+            const token = signToken(user);
+            return { token, user };
+        },
+
+        
+    }
 }
