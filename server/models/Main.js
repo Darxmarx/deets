@@ -1,5 +1,16 @@
-// set up mongoose model and bcrypt for password encryption
+// set up mongoose model
 const { Schema, model } = require('mongoose');
-const bcrypt = require('bcrypt');
 
 // set up schema
+const mainSchema = new Schema({
+    url: {
+        type: String,
+        required: true
+    }
+});
+
+// define Main model using schema
+const Main = model('Main', mainSchema);
+
+// export model for use elsewhere
+module.exports = Main;
