@@ -6,6 +6,11 @@ const mainSchema = new Schema({
     mainName: {
         type: String,
         required: true
+    },
+    mainUser: {
+        type: String,
+        required: true,
+        trim: true
     }
 });
 

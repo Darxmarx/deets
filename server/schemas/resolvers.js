@@ -74,7 +74,8 @@ const resolvers = {
             // if user is logged in, add new main to the user
             if (context.user) {
                 const main = await Main.create({
-                    mainName
+                    mainName,
+                    mainUser: context.user.username
                 });
 
                 await User.findOneAndUpdate(
@@ -94,6 +95,7 @@ const resolvers = {
             if (context.user) {
                 const main = await Main.findOneAndDelete({
                     _id: mainId,
+                    mainUser: context.user.username
                 });
 
                 await User.findOneAndUpdate(

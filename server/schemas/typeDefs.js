@@ -17,6 +17,7 @@ const typeDefs = gql`
     type Main {
         _id: ID
         mainName: String
+        mainUser: String
     }
 
     # authorization using jwt
