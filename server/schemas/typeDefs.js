@@ -6,7 +6,7 @@ const typeDefs = gql`
     # user details
     type User {
         _id: ID
-        username: String:
+        username: String
         email: String
         password: String
         # queryable field to retrieve array of mains
