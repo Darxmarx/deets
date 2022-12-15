@@ -84,6 +84,30 @@ const resolvers = {
 
                 return main;
             }
+            // returns authentication error if not logged in
+            throw new AuthenticationError('You must be logged in.');
+        },
+
+        // remove a main from a user
+        removeMain: async (parent, { mainId }, context) => {
+            // if user is logged in, remove specific main from user
+            if (context.user) {
+                const main = await Main.findOneAndDelete({
+                    _id: mainId,
+                });
+
+                await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { mains: main._id } }
+                );
+
+                return main;
+            }
+            // returns authentication error if not logged in
+            throw new AuthenticationError('You must be logged in.');
         }
     }
-}
+};
+
+// export resolvers for use elsewhere
+module.exports = resolvers;
