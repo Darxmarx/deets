@@ -17,7 +17,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 // import components needed for base app
-import Header from '/components/Header';
+import Header from './components/Header';
 
 // set up main GraphQL API endpoing
 const httpLink = createHttpLink({
